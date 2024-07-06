@@ -1,3 +1,4 @@
+import axios from "axios";
 import fs from "fs";
 import Jimp from "jimp";
 
@@ -9,10 +10,14 @@ import Jimp from "jimp";
 //    inputURL: string - a publicly accessible url to an image file
 // RETURNS
 //    an absolute path to a filtered image locally saved file
+// Had to made edits base on https://knowledge.udacity.com/questions/1026717
  export async function filterImageFromURL(inputURL) {
   return new Promise(async (resolve, reject) => {
     try {
-      const photo = await Jimp.read(inputURL);
+      const photoBuffer = await axios.get(inputURL, {
+        responseType: "arraybuffer",
+      });
+      const photo = await Jimp.read(Buffer.from(photoBuffer?.data, "binary"));
       const outpath =
         "/tmp/filtered." + Math.floor(Math.random() * 2000) + ".jpg";
       await photo
