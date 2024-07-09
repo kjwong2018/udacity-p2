@@ -22,3 +22,7 @@ Successful URL responses should have a 200 code. Ensure that you include error c
 ## License
 
 [License](LICENSE.txt)
+
+# KJWONG README
+- Screenshots will be avaialble under `deployment_screenshot` directory
+- Public FQDN will be http://kjwong-udacity-project2-dev.us-east-1.elasticbeanstalk.com 
