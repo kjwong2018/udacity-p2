@@ -25,6 +25,12 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util.js';
       return res.status(501).send("Unsupported query, we currently only accept 'image_url' query.")
     }
 
+    // Check if URL ends with jpg or jpeg
+    if (!query_value.endsWith("jpg") && !query_value.endsWith("jpeg")){
+      console.log(`Client request is not a jpg or jpeg, returning 501 with suggestion`)
+      return res.status(501).send("Unsupported query, we currently only accept 'jpg' or 'jpeg' query.")
+    }
+
     // Send filtered image and remove from local storage after
     // Reference: https://blog.logrocket.com/guide-promises-node-js/
     filterImageFromURL(query_value)
@@ -33,6 +39,7 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util.js';
     })
     .catch(err => {
         console.log(err)
+        res.status(422).send("Something went wrong on our end, unprocessable entity")
     })
   });
   
